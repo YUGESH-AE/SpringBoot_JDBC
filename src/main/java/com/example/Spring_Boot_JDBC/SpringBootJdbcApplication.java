@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 import java.util.Scanner;
@@ -28,45 +29,50 @@ public class SpringBootJdbcApplication implements CommandLineRunner {
 		CustomerDTO customer2= new CustomerDTO(7022713744L, "Robert", 27, "M", "GERMANY", 2);
 		CustomerDTO customer3= new CustomerDTO(7022713722L, "Lucy", 27, "F", "INDIA", 3);
 
-		customerService.insert(customer1);
-		customerService.insert(customer2);
-		customerService.insert(customer3);
-		logger.info("Records are successfully added..");
+		try {
+			customerService.insert(customer1);
+			customerService.insert(customer2);
+			customerService.insert(customer3);
+			logger.info("Records are successfully added..");
 
-		List<Customer> custList = customerService.selectAllCustomers();
+			List<Customer> custList = customerService.selectAllCustomers();
 
-		logger.info(" **** Records in the Table ****");
-		logger.info(" PhoneNo        Name    Age   Gender    Address       PlanID");
-		for (Customer list : custList) {
-			logger.info(list.getPhoneNumber() + "\t" + list.getName() + "\t" + list.getAge() + "\t" + list.getGender()
-					+ "\t" + list.getAddress() + "\t\t" + list.getPlanId());
-		}
-		logger.info("Number of records in the Employee Table are " + customerService.getNumberOfCustomers());
-		System.out.println("Enter the phone Number of the Customer which has to be deleted.");
-		Scanner scanner = new Scanner(System.in);
-		Long phoneNo = scanner.nextLong();
-		// Invoking Service layer method to remove Employee details from
-		// Employee table
-		int result = customerService.delete(phoneNo);
-		if (result == 1) {
-			logger.info("Success : Record deleted successfully ");
-		} else {
-			logger.info("Error : No record found for the given phone number ");
-		}
+			logger.info(" **** Records in the Table ****");
+			logger.info(" PhoneNo        Name    Age   Gender    Address       PlanID");
+			for (Customer list : custList) {
+				logger.info(list.getPhoneNumber() + "\t" + list.getName() + "\t" + list.getAge() + "\t" + list.getGender()
+						+ "\t" + list.getAddress() + "\t\t" + list.getPlanId());
+			}
+			logger.info("Number of records in the Employee Table are " + customerService.getNumberOfCustomers());
+			System.out.println("Enter the phone Number of the Customer which has to be deleted.");
+			Scanner scanner = new Scanner(System.in);
+			Long phoneNo = scanner.nextLong();
+			// Invoking Service layer method to remove Employee details from
+			// Employee table
+			int result = customerService.delete(phoneNo);
+			if (result == 1) {
+				logger.info("Success : Record deleted successfully ");
+			} else {
+				logger.info("Error : No record found for the given phone number ");
+			}
 
-		System.out.println("Enter the customer number to be updated ");
-		Long custNo = scanner.nextLong();
-		System.out.println("Enter the new Address:  ");
-		String address = scanner.next();
-		int x1 = customerService.updateCustomer(custNo, address);
-		if (x1 > 0) {
-			logger.info(" Record Updated ");
-		} else {
-			logger.info(" No records found for the empid given ");
+			System.out.println("Enter the customer number to be updated ");
+			Long custNo = scanner.nextLong();
+			System.out.println("Enter the new Address:  ");
+			String address = scanner.next();
+			int x1 = customerService.updateCustomer(custNo, address);
+			if (x1 > 0) {
+				logger.info(" Record Updated ");
+			} else {
+				logger.info(" No records found for the empid given ");
+			}
+			System.out.println("Enter the PhoneNo to be fetched ");
+			custNo = scanner.nextLong();
+			logger.info(customerService.get(custNo));
+			scanner.close();
 		}
-		System.out.println("Enter the PhoneNo to be fetched ");
-		custNo = scanner.nextLong();
-		logger.info(customerService.get(custNo));
-		scanner.close();
+		catch (DataAccessException e){
+			logger.info(e.getMessage());
+		}
 	}
 }
