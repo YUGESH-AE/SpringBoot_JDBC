@@ -5,6 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 @Configuration
 public class springconfig {
@@ -38,5 +39,9 @@ public class springconfig {
     public JdbcTemplate jdbcTemplate(){
         JdbcTemplate jdbcTemplate=new JdbcTemplate(getData());
         return jdbcTemplate;
+    }
+    public NamedParameterJdbcTemplate namedParameterJdbcTemplate(){
+       NamedParameterJdbcTemplate namedParameterJdbcTemplate=new NamedParameterJdbcTemplate(getData());
+        return namedParameterJdbcTemplate;
     }
 }

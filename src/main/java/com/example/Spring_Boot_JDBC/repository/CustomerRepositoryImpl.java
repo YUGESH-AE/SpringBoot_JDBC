@@ -4,6 +4,9 @@ import com.example.Spring_Boot_JDBC.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -16,10 +19,21 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     @Override
     public void insert(Customer customer) {
-        String query = "INSERT INTO customer(phone_no,name,age,gender,address,plan_id) Values (?,?,?,?,?,?)";
-        jdbcTemplate.update(query,customer.getPhoneNumber(),customer.getName(),customer.getAge(),customer.getGender(),customer.getAddress(),customer.getPlanId());
+        String query = "INSERT INTO customer(phone_no,name,age,gender,address,plan_id) Values (:phoneNo,:name,:age,:gender,:address,:planID)";
+       // jdbcTemplate.update(query,customer.getPhoneNumber(),customer.getName(),customer.getAge(),customer.getGender(),customer.getAddress(),customer.getPlanId());
+        SqlParameterSource name=new MapSqlParameterSource("phoneNo",customer.getPhoneNumber())
+                .addValue("name",customer.getName())
+                .addValue("age",customer.getAge())
+                .addValue("gender",customer.getGender())
+                .addValue("address",customer.getAddress())
+                .addValue("planID",customer.getPlanId());
+
+        namedParameterJdbcTemplate.update(query,name);
     }
 
     @Override
