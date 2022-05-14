@@ -2,9 +2,11 @@ package com.example.Spring_Boot_JDBC.service;
 
 import com.example.Spring_Boot_JDBC.dto.CustomerDTO;
 import com.example.Spring_Boot_JDBC.entity.Customer;
-import com.example.Spring_Boot_JDBC.repository.CustomerRepositoryImpl;
+import com.example.Spring_Boot_JDBC.repository.Plan.PlanRepositoryImpl;
+import com.example.Spring_Boot_JDBC.repository.customer.CustomerRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +15,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     CustomerRepositoryImpl customerRepository;
+    @Autowired
+    PlanRepositoryImpl planRepository;
 
     @Override
     public void insert(CustomerDTO customerDTO) {
@@ -42,5 +46,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer get(Long phoneNo) {
         return customerRepository.get(phoneNo);
+    }
+
+    @Override
+    @Transactional
+    public void TransactionalUpdateCustomer(Customer customer, Integer localRate, Integer nationalRate) {
+        customerRepository.transactionalUpdate(customer.getPhoneNumber(), customer.getAddress());
+        planRepository.transactionalUpdate(customer.getPlanId(),localRate,nationalRate);
     }
 }

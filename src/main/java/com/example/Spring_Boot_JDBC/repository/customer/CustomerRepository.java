@@ -1,4 +1,4 @@
-package com.example.Spring_Boot_JDBC.repository;
+package com.example.Spring_Boot_JDBC.repository.customer;
 
 import com.example.Spring_Boot_JDBC.entity.Customer;
 
@@ -16,5 +16,7 @@ public interface CustomerRepository {
     public int update(Long phoneNo, String address);
 
     public Customer get(Long phoneNo);
+
+    public void transactionalUpdate(Long phoneNo,String address);
 
 }

@@ -1,4 +1,4 @@
-package com.example.Spring_Boot_JDBC.repository;
+package com.example.Spring_Boot_JDBC.repository.customer;
 
 import com.example.Spring_Boot_JDBC.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,5 +88,15 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 return customer;
             }
         });
+    }
+
+    @Override
+    public void transactionalUpdate(Long phoneNo, String address) {
+        String sql="update customer set address=:address where phone_no=:phoneNo";
+        SqlParameterSource name=new MapSqlParameterSource()
+                .addValue("address",address)
+                .addValue("phoneNo",phoneNo);
+        namedParameterJdbcTemplate.update(sql,name);
+
     }
 }
