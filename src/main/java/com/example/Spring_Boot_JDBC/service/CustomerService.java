@@ -4,6 +4,7 @@ import com.example.Spring_Boot_JDBC.dto.CustomerDTO;
 import com.example.Spring_Boot_JDBC.entity.Customer;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Transactional
@@ -23,4 +24,6 @@ public interface CustomerService {
 
 
     public void TransactionalUpdateCustomer(Customer customer, Integer localRate, Integer nationalRate);
+
+    public String inertPrepareCall(CustomerDTO customer) throws SQLException;
 }

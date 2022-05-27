@@ -77,13 +77,16 @@ public class SpringBootJdbcApplication implements CommandLineRunner {
 //		}
 
 		//transactionalscope
-		CustomerDTO customer = new CustomerDTO(7022713722L, "Lucy", 27, "F", "VENICE", 3);
-		try {
-			customerService.TransactionalUpdateCustomer(CustomerDTO.CustomerEntity(customer),50,50);
+//		CustomerDTO customer = new CustomerDTO(7022713722L, "Lucy", 27, "F", "VENICE", 3);
+//		try {
+//			customerService.TransactionalUpdateCustomer(CustomerDTO.CustomerEntity(customer),50,50);
+//
+//			logger.info("update successfull");
+//		}catch (DataAccessException e){
+//			logger.info(e.getMessage());
+//		}
 
-			logger.info("update successfull");
-		}catch (DataAccessException e){
-			logger.info(e.getMessage());
-		}
+		CustomerDTO a=new CustomerDTO(10002040L,"Rajesh",21,"T","China",2);
+		logger.info(customerService.inertPrepareCall(a));
 	}
 }

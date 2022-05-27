@@ -9,8 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 @Repository
@@ -98,5 +97,22 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 .addValue("phoneNo",phoneNo);
         namedParameterJdbcTemplate.update(sql,name);
 
+    }
+
+    @Override
+    public String inertPrepareCall(Customer customer) throws SQLException {
+        Connection con=jdbcTemplate.getDataSource().getConnection();
+        CallableStatement callStmt = con.prepareCall("{ call INSERTDATA(?,?,?,?,?,?,?,?)}");
+        callStmt.setLong(1,customer.getPhoneNumber());
+        callStmt.setString(2,customer.getName());
+        callStmt.setInt(3,customer.getAge());
+        callStmt.setString(4,customer.getGender());
+        callStmt.setString(5,customer.getAddress());
+        callStmt.setInt(6,customer.getPlanId());
+        callStmt.setString(7,"success");
+        callStmt.registerOutParameter(8, Types.INTEGER);
+        callStmt.execute();
+        String s=callStmt.getString(8);
+        return "successfully updated"+s;
     }
 }
