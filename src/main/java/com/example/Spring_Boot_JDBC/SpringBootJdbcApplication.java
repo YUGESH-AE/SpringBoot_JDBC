@@ -97,14 +97,14 @@ public class SpringBootJdbcApplication implements CommandLineRunner {
 			/*
 			using the transcation scope
 			 */
-			CustomerDTO customer = new CustomerDTO(70227137100L, "Robert", 27, "M", "VENICE", 1);
-			int z=customerService.TransactionalUpdateCustomer(CustomerDTO.CustomerEntity(customer),50,50);
-			if(z>0){
-				logger.info("Transaction successfull");
-			}
-			else {
-				logger.info("Transaction failed");
-			}
+//			CustomerDTO customer = new CustomerDTO(70227137100L, "Robert", 27, "M", "VENICE", 1);
+//			int z=customerService.TransactionalUpdateCustomer(CustomerDTO.CustomerEntity(customer),50,50);
+//			if(z>0){
+//				logger.info("Transaction successfull");
+//			}
+//			else {
+//				logger.info("Transaction failed");
+//			}
 
 			/*
 			invoking stored procedure

@@ -10,20 +10,20 @@ import java.util.List;
 @Transactional
 public interface CustomerService {
 
-    public void insert(CustomerDTO customerDTO);
+     void insert(CustomerDTO customerDTO);
 
-    public int delete(Long phone);
+     int delete(Long phone);
 
-    public List<Customer> selectAllCustomers();
+     List<Customer> selectAllCustomers();
 
-    public int getNumberOfCustomers();
+     int getNumberOfCustomers();
 
-    public int updateCustomer(Long phoneNo, String address);
+     int updateCustomer(Long phoneNo, String address);
 
-    public Customer get(Long phoneNo);
+     Customer get(Long phoneNo);
 
 
-    public int TransactionalUpdateCustomer(Customer customer, Integer localRate, Integer nationalRate);
+     int TransactionalUpdateCustomer(Customer customer, Integer localRate, Integer nationalRate);
 
-    public String inertPrepareCall(CustomerDTO customer) throws SQLException;
+     String inertPrepareCall(CustomerDTO customer) throws SQLException;
 }

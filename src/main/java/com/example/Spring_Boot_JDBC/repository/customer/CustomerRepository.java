@@ -6,20 +6,20 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface CustomerRepository {
-    public void insert(Customer customer);
+     void insert(Customer customer);
 
-    public int delete(Long phoneNO);
+     int delete(Long phoneNO);
 
-    public int update(Long phoneNo, String address);
+     int update(Long phoneNo, String address);
 
-    public List<Customer> getAll();
+     List<Customer> getAll();
 
-    public int getCount();
+     int getCount();
 
-    public Customer get(Long phoneNo);
+     Customer get(Long phoneNo);
 
-    public void transactionalUpdate(Long phoneNo,String address);
+     void transactionalUpdate(Long phoneNo,String address);
 
-    public String inertPrepareCall(Customer customer) throws SQLException;
+     String inertPrepareCall(Customer customer) throws SQLException;
 
 }
