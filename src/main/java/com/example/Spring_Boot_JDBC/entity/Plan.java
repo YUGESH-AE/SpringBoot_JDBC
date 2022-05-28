@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@SuppressWarnings("all")
 public class Plan {
     private Integer planId;
     private String planName;

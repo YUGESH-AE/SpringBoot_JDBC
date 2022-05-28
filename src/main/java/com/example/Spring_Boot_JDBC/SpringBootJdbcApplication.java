@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @SpringBootApplication
+@SuppressWarnings("all")
 public class SpringBootJdbcApplication implements CommandLineRunner {
 	static Logger logger= LogManager.getLogger(SpringBootJdbcApplication.class);
 

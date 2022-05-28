@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 
 @Configuration
+@SuppressWarnings("all")
 public class springconfig {
 
     @Value("${spring.datasource.username}")

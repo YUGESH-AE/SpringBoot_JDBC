@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Setter
 @Getter
-
+@SuppressWarnings("all")
 public class PlanDTO {
     private Integer planId;
     private String planName;

@@ -13,6 +13,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@SuppressWarnings("all")
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired

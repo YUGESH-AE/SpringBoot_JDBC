@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
+@SuppressWarnings("all")
 public class Customer {
     private Long phoneNumber;
     private String name;

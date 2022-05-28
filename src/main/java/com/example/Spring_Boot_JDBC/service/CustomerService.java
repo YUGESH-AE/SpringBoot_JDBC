@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Transactional
+@SuppressWarnings("all")
 public interface CustomerService {
 
      void insert(CustomerDTO customerDTO);

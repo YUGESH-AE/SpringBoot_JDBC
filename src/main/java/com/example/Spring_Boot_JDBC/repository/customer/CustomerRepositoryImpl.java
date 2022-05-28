@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@SuppressWarnings("all")
 public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Autowired

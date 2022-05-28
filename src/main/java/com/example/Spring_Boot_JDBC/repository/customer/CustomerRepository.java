@@ -5,6 +5,7 @@ import com.example.Spring_Boot_JDBC.entity.Customer;
 import java.sql.SQLException;
 import java.util.List;
 
+@SuppressWarnings("all")
 public interface CustomerRepository {
      void insert(Customer customer);
 
