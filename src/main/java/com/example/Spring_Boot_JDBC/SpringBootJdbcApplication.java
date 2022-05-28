@@ -112,6 +112,11 @@ public class SpringBootJdbcApplication implements CommandLineRunner {
 //			CustomerDTO a=new CustomerDTO(10002040L,"Rajesh",21,"T","China",2);
 //			logger.info(customerService.inertPrepareCall(a));
 
+			/*
+			stored procedure using jdbc call
+			 */
+			logger.info(customerService.getCustomerStoredProcedure(7022713722L));
+
 			scanner.close();
 		}
 		catch (DataAccessException e){

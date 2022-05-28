@@ -7,10 +7,12 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
@@ -20,6 +22,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    SimpleJdbcCall simpleJdbcCall;
 
     @Override
     public void insert(Customer customer) {
@@ -121,5 +126,23 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         callStmt.execute();
         String s=callStmt.getString(8);
         return "successfully updated"+s;
+    }
+
+    @Override
+    public Customer getcustomerStoredProcedure(Long phoneNo) {
+        simpleJdbcCall.withProcedureName("fetch_Customer");
+
+        SqlParameterSource in=new MapSqlParameterSource()
+                .addValue("in_phone",phoneNo);
+
+        Map<String,Object>out=simpleJdbcCall.execute(in);
+        Customer customer=new Customer();
+        customer.setPhoneNumber(phoneNo);
+        customer.setName((String) out.get("out_name"));
+        customer.setAge((Integer) out.get("out_age"));
+        customer.setGender((String) out.get("out_gender"));
+        customer.setAddress((String) out.get("out_address"));
+        customer.setPlanId((Integer) out.get("out_plan_id"));
+        return customer;
     }
 }

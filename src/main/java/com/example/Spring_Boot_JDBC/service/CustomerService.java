@@ -26,4 +26,6 @@ public interface CustomerService {
      int TransactionalUpdateCustomer(Customer customer, Integer localRate, Integer nationalRate);
 
      String inertPrepareCall(CustomerDTO customer) throws SQLException;
+
+     Customer getCustomerStoredProcedure(Long phoneNo);
 }

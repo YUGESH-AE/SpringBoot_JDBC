@@ -22,4 +22,6 @@ public interface CustomerRepository {
 
      String inertPrepareCall(Customer customer) throws SQLException;
 
+     Customer getcustomerStoredProcedure(Long phoneNo);
+
 }

@@ -61,4 +61,9 @@ public class CustomerServiceImpl implements CustomerService {
     public String inertPrepareCall(CustomerDTO customer) throws SQLException {
        return customerRepository.inertPrepareCall(CustomerDTO.CustomerEntity(customer));
     }
+
+    @Override
+    public Customer getCustomerStoredProcedure(Long phoneNo) {
+        return customerRepository.getcustomerStoredProcedure(phoneNo);
+    }
 }
