@@ -36,10 +36,10 @@ public class SpringBootJdbcApplication implements CommandLineRunner {
 			/*
 			inserting data
 			 */
-			customerService.insert(customer1);
-			customerService.insert(customer2);
-			customerService.insert(customer3);
-			logger.info("Records are successfully added..");
+//			customerService.insert(customer1);
+//			customerService.insert(customer2);
+//			customerService.insert(customer3);
+//			logger.info("Records are successfully added..");
 
 			/*
 			fetching all data
@@ -61,16 +61,16 @@ public class SpringBootJdbcApplication implements CommandLineRunner {
 			/*
 			deleting the data
 			 */
-			logger.info("Enter the phone Number of the Customer which has to be deleted.");
-			Long phoneNo = scanner.nextLong();
-			// Invoking Service layer method to remove Employee details from
-			// Employee table
-			int result = customerService.delete(phoneNo);
-			if (result == 1) {
-				logger.info("Success : Record deleted successfully ");
-			} else {
-				logger.info("Error : No record found for the given phone number ");
-			}
+//			logger.info("Enter the phone Number of the Customer which has to be deleted.");
+//			Long phoneNo = scanner.nextLong();
+//			// Invoking Service layer method to remove Employee details from
+//			// Employee table
+//			int result = customerService.delete(phoneNo);
+//			if (result == 1) {
+//				logger.info("Success : Record deleted successfully ");
+//			} else {
+//				logger.info("Error : No record found for the given phone number ");
+//			}
 
 			/*
 			updating the database

@@ -10,11 +10,11 @@ public interface CustomerRepository {
 
     public int delete(Long phoneNO);
 
+    public int update(Long phoneNo, String address);
+
     public List<Customer> getAll();
 
     public int getCount();
-
-    public int update(Long phoneNo, String address);
 
     public Customer get(Long phoneNo);
 

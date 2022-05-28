@@ -23,22 +23,35 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void insert(Customer customer) {
-//      String query = "INSERT INTO customer(phone_no,name,age,gender,address,plan_id) Values (:phoneNo,:name,:age,:gender,:address,:planID)";
-        String query = "INSERT INTO customer(phone_no,name,age,gender,address,plan_id) Values (?,?,?,?,?,?)";
-        jdbcTemplate.update(query,customer.getPhoneNumber(),customer.getName(),customer.getAge(),customer.getGender(),customer.getAddress(),customer.getPlanId());
-//        SqlParameterSource name=new MapSqlParameterSource("phoneNo",customer.getPhoneNumber())
-//                .addValue("name",customer.getName())
-//                .addValue("age",customer.getAge())
-//                .addValue("gender",customer.getGender())
-//                .addValue("address",customer.getAddress())
-//                .addValue("planID",customer.getPlanId());
-//
-//        namedParameterJdbcTemplate.update(query,name);
+      String query = "INSERT INTO customer(phone_no,name,age,gender,address,plan_id) Values (:phoneNo,:name,:age,:gender,:address,:planID)";
+       // String query = "INSERT INTO customer(phone_no,name,age,gender,address,plan_id) Values (?,?,?,?,?,?)";
+       // jdbcTemplate.update(query,customer.getPhoneNumber(),customer.getName(),customer.getAge(),customer.getGender(),customer.getAddress(),customer.getPlanId());
+        SqlParameterSource name=new MapSqlParameterSource("phoneNo",customer.getPhoneNumber())
+                .addValue("name",customer.getName())
+                .addValue("age",customer.getAge())
+                .addValue("gender",customer.getGender())
+                .addValue("address",customer.getAddress())
+                .addValue("planID",customer.getPlanId());
+
+        namedParameterJdbcTemplate.update(query,name);
     }
 
     @Override
     public int delete(Long phoneNO) {
-        return jdbcTemplate.update("delete from customer where phone_no = ? ", phoneNO);
+        //return jdbcTemplate.update("delete from customer where phone_no = ? ", phoneNO);
+        String sql="delete from customer where phone_no =:phoneNo";
+        SqlParameterSource name=new MapSqlParameterSource("phoneNo",phoneNO);
+        return namedParameterJdbcTemplate.update(sql,name);
+    }
+
+    @Override
+    public int update(Long phoneNo, String address) {
+        //String query = "update customer set address = ? " + " where phone_no = ?";
+        //return jdbcTemplate.update(query,address,phoneNo);
+        String sql="update customer set address =:address " + " where phone_no =:phoneNo";
+        SqlParameterSource name=new MapSqlParameterSource("address",address)
+                .addValue("phoneNo",phoneNo);
+        return namedParameterJdbcTemplate.update(sql,name);
     }
 
     @Override
@@ -63,12 +76,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public int getCount() {
         String sql = "Select count(*) from customer";
         return jdbcTemplate.queryForObject(sql,Integer.class);
-    }
-
-    @Override
-    public int update(Long phoneNo, String address) {
-        String query = "update customer set address = ? " + " where phone_no = ?";
-        return jdbcTemplate.update(query,address,phoneNo);
     }
 
     @Override
