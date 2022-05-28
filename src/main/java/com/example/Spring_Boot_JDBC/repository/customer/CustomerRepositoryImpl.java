@@ -23,16 +23,17 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void insert(Customer customer) {
-        String query = "INSERT INTO customer(phone_no,name,age,gender,address,plan_id) Values (:phoneNo,:name,:age,:gender,:address,:planID)";
-       // jdbcTemplate.update(query,customer.getPhoneNumber(),customer.getName(),customer.getAge(),customer.getGender(),customer.getAddress(),customer.getPlanId());
-        SqlParameterSource name=new MapSqlParameterSource("phoneNo",customer.getPhoneNumber())
-                .addValue("name",customer.getName())
-                .addValue("age",customer.getAge())
-                .addValue("gender",customer.getGender())
-                .addValue("address",customer.getAddress())
-                .addValue("planID",customer.getPlanId());
-
-        namedParameterJdbcTemplate.update(query,name);
+//      String query = "INSERT INTO customer(phone_no,name,age,gender,address,plan_id) Values (:phoneNo,:name,:age,:gender,:address,:planID)";
+        String query = "INSERT INTO customer(phone_no,name,age,gender,address,plan_id) Values (?,?,?,?,?,?)";
+        jdbcTemplate.update(query,customer.getPhoneNumber(),customer.getName(),customer.getAge(),customer.getGender(),customer.getAddress(),customer.getPlanId());
+//        SqlParameterSource name=new MapSqlParameterSource("phoneNo",customer.getPhoneNumber())
+//                .addValue("name",customer.getName())
+//                .addValue("age",customer.getAge())
+//                .addValue("gender",customer.getGender())
+//                .addValue("address",customer.getAddress())
+//                .addValue("planID",customer.getPlanId());
+//
+//        namedParameterJdbcTemplate.update(query,name);
     }
 
     @Override
