@@ -100,8 +100,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     public void transactionalUpdate(Long phoneNo, String address) {
         String sql="update customer set address=:address where phone_no=:phoneNo";
-        SqlParameterSource name=new MapSqlParameterSource()
-                .addValue("address",address)
+        SqlParameterSource name=new MapSqlParameterSource("address",address)
                 .addValue("phoneNo",phoneNo);
         namedParameterJdbcTemplate.update(sql,name);
 

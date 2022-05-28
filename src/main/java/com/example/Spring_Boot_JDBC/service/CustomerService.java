@@ -23,7 +23,7 @@ public interface CustomerService {
     public Customer get(Long phoneNo);
 
 
-    public void TransactionalUpdateCustomer(Customer customer, Integer localRate, Integer nationalRate);
+    public int TransactionalUpdateCustomer(Customer customer, Integer localRate, Integer nationalRate);
 
     public String inertPrepareCall(CustomerDTO customer) throws SQLException;
 }

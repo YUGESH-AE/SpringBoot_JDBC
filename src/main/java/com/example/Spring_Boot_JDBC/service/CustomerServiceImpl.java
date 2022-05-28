@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Service
+@Transactional
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
@@ -50,10 +51,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    @Transactional
-    public void TransactionalUpdateCustomer(Customer customer, Integer localRate, Integer nationalRate) {
+    public int TransactionalUpdateCustomer(Customer customer, Integer localRate, Integer nationalRate) {
         customerRepository.transactionalUpdate(customer.getPhoneNumber(), customer.getAddress());
         planRepository.transactionalUpdate(customer.getPlanId(),localRate,nationalRate);
+        return 1;
     }
 
     @Override

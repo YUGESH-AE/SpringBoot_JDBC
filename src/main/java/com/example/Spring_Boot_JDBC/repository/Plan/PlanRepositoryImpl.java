@@ -15,10 +15,11 @@ public class PlanRepositoryImpl implements PlanRepository{
     @Override
     public void transactionalUpdate(Integer planId, Integer localRate, Integer nationalRate) {
         String sql="update plan set national_Rate=:nationalRate, local_rate=:localRate where plan_id=:planId";
-        SqlParameterSource name= new MapSqlParameterSource()
-                .addValue("planId",planId)
+        SqlParameterSource name= new MapSqlParameterSource("nationalRate",nationalRate)
                 .addValue("localRate",localRate)
-                .addValue("nationalRate",nationalRate);
+                .addValue("planId",planId);
+        namedParameterJdbcTemplate.update(sql,name);
+
 
     }
 }
