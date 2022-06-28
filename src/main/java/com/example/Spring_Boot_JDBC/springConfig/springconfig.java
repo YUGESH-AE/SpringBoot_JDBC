@@ -23,15 +23,15 @@ public class springconfig {
     private String url;
 
     @Bean
-    public HikariDataSource getData(){
+    public HikariDataSource getHikariDataSource(){
 
-        HikariConfig config=new HikariConfig();
-        config.setUsername(username);
-        config.setPassword(password);
-        config.setDriverClassName(driver);
-        config.setJdbcUrl(url);
+        HikariConfig hikariConfig=new HikariConfig();
+        hikariConfig.setUsername(username);
+        hikariConfig.setPassword(password);
+        hikariConfig.setDriverClassName(driver);
+        hikariConfig.setJdbcUrl(url);
 
-        HikariDataSource dataSource=new HikariDataSource(config);
+        HikariDataSource dataSource=new HikariDataSource(hikariConfig);
 
         if(dataSource.isRunning()){
             System.out.println("--------->connection established successfully");
@@ -43,18 +43,18 @@ public class springconfig {
     @Bean
 
     public JdbcTemplate jdbcTemplate(){
-        JdbcTemplate jdbcTemplate=new JdbcTemplate(getData());
+        JdbcTemplate jdbcTemplate=new JdbcTemplate(getHikariDataSource());
         return jdbcTemplate;
     }
     @Bean
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate(){
-       NamedParameterJdbcTemplate namedParameterJdbcTemplate=new NamedParameterJdbcTemplate(getData());
+       NamedParameterJdbcTemplate namedParameterJdbcTemplate=new NamedParameterJdbcTemplate(getHikariDataSource());
         return namedParameterJdbcTemplate;
     }
 
     @Bean
     public SimpleJdbcCall simpleJdbcCall(){
-        SimpleJdbcCall simpleJdbcCall=new SimpleJdbcCall(getData());
+        SimpleJdbcCall simpleJdbcCall=new SimpleJdbcCall(getHikariDataSource());
         return simpleJdbcCall;
     }
 }
